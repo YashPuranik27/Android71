@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:animateLayoutChanges="true"
-	tools:context=".controller.PhotoActivity">
+	tools:context=".PhotoActivity">
 
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/photo_toolbar"

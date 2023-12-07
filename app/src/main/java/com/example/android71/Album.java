@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Album implements Serializable {
@@ -20,7 +18,8 @@ public class Album implements Serializable {
 	}
 
 	public boolean addPhoto(Photo photo) {
-		if (!photos.contains(photo) && photos.add(photo)) {
+		if (!photos.contains(photo)) {
+			photos.add(photo);
 			setSelectedIndex(photos.size() - 1);
 			return true;
 		}
@@ -35,19 +34,20 @@ public class Album implements Serializable {
 		return removed;
 	}
 
+
 	public ArrayList<String> returnAllPhotoTagValues() {
-		Set<String> uniqueTags = photos.stream()
+		return photos.stream()
 				.flatMap(p -> p.returnAllTagValues().stream())
-				.collect(Collectors.toCollection(LinkedHashSet::new));
-		return new ArrayList<>(uniqueTags);
+				.distinct()
+				.collect(Collectors.toCollection(ArrayList::new));
 	}
+
 
 	public String getName() { return name; }
 	public ArrayList<Photo> getPhotos() { return photos; }
 	public int getSelectedIndex() { return selectedIndex; }
 
 	public void setName(String name) { this.name = name; }
-	public void setPhotos(ArrayList<Photo> photos) { this.photos = photos; }
 	public void setSelectedIndex(int selectedIndex) {
 		if (selectedIndex >= 0 && selectedIndex < photos.size()) {
 			this.selectedIndex = selectedIndex;

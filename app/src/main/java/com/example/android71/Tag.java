@@ -2,50 +2,62 @@ package com.example.android71;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class Tag implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-	private ArrayList<String> values = new ArrayList<>();
+	private ArrayList<String> values;
 
 	public Tag(String name) {
 		this.name = name;
+		values = new ArrayList<>();
 	}
 
 	public boolean startsWithTagValue(String query) {
-		String queryLower = query.toLowerCase();
-		return values.stream().anyMatch(s -> s.toLowerCase().startsWith(queryLower));
+		return values.stream().anyMatch(s -> s.toLowerCase().startsWith(query));
 	}
 
+
+	/**
+	 * @return whether or not the given value was added successfully
+	 */
 	public boolean addValue(String value) {
-		if ("location".equals(name) && !values.isEmpty()) {
+		if (values.stream().anyMatch(str -> str.equalsIgnoreCase(value))) {
+			return false;
+		}
+
+		if (name.equals("location") && !values.isEmpty()) {
 			values.set(0, value);
 			return true;
 		}
-		return values.stream().noneMatch(value::equalsIgnoreCase) && values.add(value);
+
+		return values.add(value);
 	}
 
 	public void removeValue(String value) {
-		values.removeIf(value::equalsIgnoreCase);
+		values.removeIf(str -> str.equalsIgnoreCase(value));
 	}
 
-	public String getName() { return name; }
-	public ArrayList<String> getValues() { return values; }
+	public String getName() {
+		return name;
+	}
+	public ArrayList<String> getValues() {
+		return values;
+	}
 
-	public void setName(String name) { this.name = name; }
-	public void setValues(ArrayList<String> values) { this.values = values; }
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	@Override
 	public boolean equals(Object t) {
-		if (this == t) return true;
-		if (!(t instanceof Tag)) return false;
-		Tag tag = (Tag) t;
-		return name.equals(tag.name) && values.equals(tag.values);
+		return (t instanceof Tag) && name.equals(((Tag) t).getName()) && values.equals(((Tag) t).getValues());
 	}
 
+
 	public String printTagValues() {
-		return values.stream().collect(Collectors.joining(" | "));
+		return String.join(" | ", values);
 	}
+
 }

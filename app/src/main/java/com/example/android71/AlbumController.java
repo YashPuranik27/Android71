@@ -15,28 +15,34 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-// For reference: https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter
 public class AlbumController extends RecyclerView.Adapter<AlbumController.AlbumViewHolder> {
-	private List<Album> list;
+	private Context context;
 	private ItemActionListener listener;
+	private List<Album> list;
 
 	@NonNull
 	@Override
-	public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_album, parent, false);
-		return new AlbumViewHolder(itemView);
+	public AlbumController.AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		return new AlbumViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_album, parent, false));
 	}
 
+
 	@Override
-	public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
+	public void onBindViewHolder(@NonNull AlbumController.AlbumViewHolder holder, int position) {
 		Album album = list.get(position);
 		holder.titleView.setText(album.getName());
-		holder.bindListeners(position, listener, holder.itemView.getContext());
+
+		holder.mainLayout.setOnClickListener(v -> listener.openAlbum(position));
+		holder.deleteButton.setOnClickListener(v -> listener.deleteAlbum(position, holder, context));
+		holder.renameButton.setOnClickListener(v -> listener.renameAlbum(position, holder, context));
+		holder.overflowButton.setOnClickListener(v -> listener.showActionsOverlay(holder, context));
+		holder.cancelButton.setOnClickListener(v -> listener.hideActionsOverlay(holder, context));
 	}
+
 
 	@Override
 	public int getItemCount() {
-		return list == null ? 0 : list.size();
+		return list.size();
 	}
 
 	void setItemActionListener(ItemActionListener listener) {
@@ -45,23 +51,28 @@ public class AlbumController extends RecyclerView.Adapter<AlbumController.AlbumV
 
 	void setList(List<Album> list) {
 		this.list = list;
-		notifyDataSetChanged();
 	}
+
 
 	interface ItemActionListener {
 		void openAlbum(int position);
+
 		void deleteAlbum(int position, AlbumViewHolder holder, Context context);
-		void renameAlbum(int position, AlbumViewHolder holder, Context context);
+
+		void renameAlbum(int position, AlbumController.AlbumViewHolder holder, Context context);
+
 		void showActionsOverlay(AlbumViewHolder holder, Context context);
+
 		void hideActionsOverlay(AlbumViewHolder holder, Context context);
 	}
 
+
 	static class AlbumViewHolder extends RecyclerView.ViewHolder {
 		CardView cardView;
-		ConstraintLayout mainLayout;
-		LinearLayout overlayLayout;
 		TextView titleView;
 		ImageButton overflowButton, deleteButton, renameButton, cancelButton;
+		ConstraintLayout mainLayout;
+		LinearLayout overlayLayout;
 
 		public AlbumViewHolder(@NonNull View itemView) {
 			super(itemView);
@@ -74,13 +85,6 @@ public class AlbumController extends RecyclerView.Adapter<AlbumController.AlbumV
 			renameButton = itemView.findViewById(R.id.album_card_button_rename);
 			cancelButton = itemView.findViewById(R.id.album_card_button_cancel);
 		}
-
-		void bindListeners(int position, ItemActionListener listener, Context context) {
-			itemView.setOnClickListener(v -> listener.openAlbum(position));
-			deleteButton.setOnClickListener(v -> listener.deleteAlbum(position, this, context));
-			renameButton.setOnClickListener(v -> listener.renameAlbum(position, this, context));
-			overflowButton.setOnClickListener(v -> listener.showActionsOverlay(this, context));
-			cancelButton.setOnClickListener(v -> listener.hideActionsOverlay(this, context));
-		}
 	}
+
 }
