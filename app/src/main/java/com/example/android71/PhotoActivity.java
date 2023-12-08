@@ -5,6 +5,7 @@ import static com.example.android71.MainActivity.ALBUM_INDEX_KEY;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.view.View;
 import android.os.Bundle;
 import android.view.Menu;
@@ -51,6 +52,8 @@ public class PhotoActivity extends AppCompatActivity {
 
 		leftButton.setOnClickListener(listener);
 		rightButton.setOnClickListener(listener);
+
+		ac = AlbumCollection.getInstance();
 	}
 
 
@@ -107,6 +110,7 @@ public class PhotoActivity extends AppCompatActivity {
 			return true;
 		} else if (itemId == R.id.photo_menu_item_remove) {
 			MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+
 			builder.setTitle("Remove Photo")
 					.setMessage("Are you sure you want to remove this photo?")
 					.setPositiveButton("Ok", (dialog, which) -> {
@@ -116,6 +120,7 @@ public class PhotoActivity extends AppCompatActivity {
 					})
 					.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel())
 					.show();
+
 			return true;
 		} else if (itemId == android.R.id.home) {
 			finish();
