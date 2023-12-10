@@ -1,6 +1,9 @@
 package com.example.android71;
 
 import static com.example.android71.MainActivity.ALBUM_INDEX_KEY;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -154,12 +157,31 @@ public class AlbumActivity extends AppCompatActivity implements PhotoController.
 				.show();
 	}
 
+	private ActivityResultLauncher<Intent> photoActivityLauncher = registerForActivityResult(
+			new ActivityResultContracts.StartActivityForResult(),
+			new ActivityResultCallback<ActivityResult>() {
+				@Override
+				public void onActivityResult(ActivityResult result) {
+					startActivity(getIntent());
+					finish();
+					System.out.println("Got result");
+				}
+			});
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
 	@Override
 	public void openPhoto(int position) {
 		album.setSelectedIndex(position);
 		Intent intent = new Intent(this, PhotoActivity.class);
 		intent.putExtra(ALBUM_INDEX_KEY, albumIndex);
-		startActivity(intent);
+
+		//startActivity(intent);
+		photoActivityLauncher.launch(intent);
+
 	}
 
 

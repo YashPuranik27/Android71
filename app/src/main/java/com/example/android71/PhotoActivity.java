@@ -5,7 +5,9 @@ import static com.example.android71.MainActivity.ALBUM_INDEX_KEY;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.os.Bundle;
 import android.view.Menu;
@@ -123,6 +125,9 @@ public class PhotoActivity extends AppCompatActivity {
 
 			return true;
 		} else if (itemId == android.R.id.home) {
+			Intent returnIntent = new Intent();
+			returnIntent.putExtra("data", "some data");
+			setResult(Activity.RESULT_OK,returnIntent);
 			finish();
 			return true;
 		}
