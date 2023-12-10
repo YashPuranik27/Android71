@@ -34,6 +34,14 @@ public class AlbumCollection {
 		return albums.stream().filter(a -> a.equals(album)).findFirst().orElse(null);
 	}
 
+	public boolean doesAlbumExist(String albumName) {
+		for(Album al : albums){
+			if(al.getName().equals(albumName))
+				return true;
+		}
+		return false;
+	}
+
 	public static AlbumCollection getInstance() {
 		return (instance == null) ? (instance = new AlbumCollection()) : instance;
 	}

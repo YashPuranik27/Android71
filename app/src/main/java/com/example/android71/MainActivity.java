@@ -70,7 +70,12 @@ public class MainActivity extends AppCompatActivity implements AlbumController.I
 				.setMessage("Enter the name of the new album.")
 				.setView(nameInput)
 				.setPositiveButton("Add", (dialog, which) -> {
-					ac.getAlbums().add(new Album(nameInput.getText().toString().trim()));
+					String newName = nameInput.getText().toString().trim();
+					if(newName.equals("") || ac.doesAlbumExist(newName)){
+						new MaterialAlertDialogBuilder(this).setTitle("Error").setMessage("Album name is invalid").setNeutralButton("Okay", (dialog2, which2) -> {}).show();
+						return;
+					}
+					ac.getAlbums().add(new Album(newName));
 					adapter.notifyItemInserted(ac.getAlbums().size() - 1);
 					emptyText.setVisibility(View.INVISIBLE);
 					ac.saveAlbums(this);
@@ -194,7 +199,12 @@ public class MainActivity extends AppCompatActivity implements AlbumController.I
 				.setMessage("Enter the new name of the album.")
 				.setView(nameInput)
 				.setPositiveButton("Rename", (dialog, which) -> {
-					ac.getAlbums().get(position).setName(nameInput.getText().toString().trim());
+					String newName = nameInput.getText().toString().trim();
+					if(newName.equals("") || ac.doesAlbumExist(newName)){
+						new MaterialAlertDialogBuilder(this).setTitle("Error").setMessage("Album name is invalid").setNeutralButton("Okay", (dialog2, which2) -> {}).show();
+						return;
+					}
+					ac.getAlbums().get(position).setName(newName);
 					adapter.notifyItemChanged(position);
 					hideActionsOverlay(holder, context);
 					ac.saveAlbums(this);
