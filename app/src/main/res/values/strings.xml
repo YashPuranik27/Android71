@@ -9,6 +9,7 @@
 	<string name="title_edit_tags">Edit Tags</string>
 	<string name="title_move">Move</string>
 	<string name="title_tags">Tags</string>
+	<string name="title_filter">Filter</string>
 
 	<!-- no content -->
 	<string name="no_albums">Create a new album.</string>
@@ -29,4 +30,12 @@
 	<!-- descriptions -->
 	<string name="tag_person_desc">Person: </string>
 	<string name="tag_location_desc">Location: </string>
+
+	<string name="filter_and">AND</string>
+	<string name="filter_or">OR</string>
+	<string name="filter_button">Search</string>
+	<string name="filter_ptag1">Person 1</string>
+	<string name="filter_ptag2">Person 2</string>
+	<string name="filter_ltag1">Location 1</string>
+	<string name="filter_ltag2">Location 2</string>
 </resources>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:backgroundTint="@color/white"
+	android:paddingStart="40dp"
+	android:paddingTop="24dp"
+	android:paddingEnd="32dp"
+	android:paddingBottom="24dp">
+
+	<TextView
+		android:id="@+id/filter_andText"
+		android:layout_width="46dp"
+		android:layout_height="19dp"
+		android:layout_marginTop="16dp"
+		android:text="@string/filter_and"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/filter_text_location"
+		app:layout_constraintVertical_bias="0.005" />
+
+	<Switch
+		android:id="@+id/filter_jointSwitch"
+		android:layout_width="54dp"
+		android:layout_height="48dp"
+		android:layout_marginTop="5dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.031"
+		app:layout_constraintStart_toEndOf="@+id/filter_andText"
+		app:layout_constraintTop_toBottomOf="@+id/filter_text_location"
+		app:layout_constraintVertical_bias="0.005" />
+
+	<TextView
+		android:id="@+id/filter_orText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="17dp"
+		android:text="@string/filter_or"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/filter_searchButton"
+		app:layout_constraintHorizontal_bias="0.1"
+		app:layout_constraintStart_toEndOf="@+id/filter_jointSwitch"
+		app:layout_constraintTop_toBottomOf="@+id/filter_text_location"
+		app:layout_constraintVertical_bias="0.003" />
+
+	<TextView
+		android:id="@+id/filter_text_tags"
+		android:layout_width="290dp"
+		android:layout_height="46dp"
+		android:text="@string/title_filter"
+		android:textColor="@color/text_title"
+		android:textSize="22sp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toLeftOf="@+id/filter_button_close"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_bias="0.0" />
+
+	<ImageButton
+		android:id="@+id/filter_button_close"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="?attr/selectableItemBackgroundBorderless"
+		android:contentDescription="@string/content_desc_cancel_icon"
+		android:minWidth="48dp"
+		android:minHeight="48dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintHorizontal_bias="1"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_bias="0"
+		app:srcCompat="@drawable/ic_cancel_32"
+		app:tint="@color/colorAccent" />
+
+	<TextView
+		android:id="@+id/filter_text_person"
+		android:layout_width="100dp"
+		android:layout_height="52dp"
+		android:layout_marginTop="10dp"
+		android:text="@string/tag_person_desc"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/filter_text_tags"
+		app:layout_constraintVertical_bias="0.0" />
+
+	<TextView
+		android:id="@+id/filter_text_location"
+		android:layout_width="100dp"
+		android:layout_height="52dp"
+		android:layout_marginTop="10dp"
+		android:text="@string/tag_location_desc"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/filter_text_person"
+		app:layout_constraintVertical_bias="0.0" />
+
+	<Button
+		android:id="@+id/filter_searchButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/filter_button"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/filter_locationTag2"
+		app:layout_constraintVertical_bias="0.025" />
+
+	<AutoCompleteTextView
+		android:id="@+id/filter_personTag1"
+		android:layout_width="99dp"
+		android:layout_height="50dp"
+		android:layout_marginStart="10dp"
+		android:layout_marginTop="12dp"
+		android:hint="@string/filter_ptag1"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toEndOf="@+id/filter_text_person"
+		app:layout_constraintTop_toBottomOf="@+id/filter_text_tags" />
+
+	<AutoCompleteTextView
+		android:id="@+id/filter_personTag2"
+		android:layout_width="106dp"
+		android:layout_height="49dp"
+		android:layout_marginStart="10dp"
+		android:layout_marginTop="12dp"
+		android:hint="@string/filter_ptag2"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/filter_personTag1"
+		app:layout_constraintTop_toBottomOf="@+id/filter_text_tags" />
+
+	<AutoCompleteTextView
+		android:id="@+id/filter_locationTag1"
+		android:layout_width="100dp"
+		android:layout_height="46dp"
+		android:layout_marginStart="10dp"
+		android:layout_marginTop="16dp"
+		android:hint="@string/filter_ltag1"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toEndOf="@+id/filter_text_location"
+		app:layout_constraintTop_toBottomOf="@+id/filter_personTag1" />
+
+	<AutoCompleteTextView
+		android:id="@+id/filter_locationTag2"
+		android:layout_width="109dp"
+		android:layout_height="46dp"
+		android:layout_marginStart="10dp"
+		android:layout_marginTop="16dp"
+		android:hint="@string/filter_ltag2"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.375"
+		app:layout_constraintStart_toEndOf="@+id/filter_locationTag1"
+		app:layout_constraintTop_toBottomOf="@+id/filter_personTag2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

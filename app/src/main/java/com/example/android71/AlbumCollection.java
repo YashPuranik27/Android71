@@ -17,6 +17,27 @@ public class AlbumCollection {
 	private ArrayList<Album> albums;
 	private ArrayList<Photo> searchResults;
 
+	private ArrayList<String> personNames = new ArrayList<>();
+	private ArrayList<String> locations = new ArrayList<>();
+
+	public ArrayList<String> getPersonNames(){
+		return personNames;
+	}
+
+	public ArrayList<String> getLocations(){
+		return locations;
+	}
+
+	public void addPersonName(String nIn){
+		if(!personNames.contains(nIn))
+			personNames.add(nIn);
+	}
+
+	public void addLocationName(String lIn){
+		if(!locations.contains(lIn))
+			locations.add(lIn);
+	}
+
 	public void setSearchResults(ArrayList<Photo> results){
 		searchResults = results;
 	}
@@ -63,6 +84,17 @@ public class AlbumCollection {
 			e.printStackTrace();
 			albums = new ArrayList<>(); // In case of other errors, also initialize empty list
 		}
+
+		for(Album al : albums){
+			for(Photo ph : al.getPhotos()){
+				for(String value : ph.getPersonTag().getValues()){
+					addPersonName(value);
+				}
+				for(String value : ph.getLocationTag().getValues()){
+					addLocationName(value);
+				}
+			}
+		}
 	}
 
 	public ArrayList<String> returnAllAlbumTagValues() {
@@ -77,6 +109,21 @@ public class AlbumCollection {
 		return albums.stream()
 				.flatMap(a -> a.getPhotos().stream())
 				.filter(p -> p.getPersonTag().startsWithTagValue(tagValue) || p.getLocationTag().startsWithTagValue(tagValue))
+				.distinct()
+				.collect(Collectors.toCollection(ArrayList::new));
+	}
+
+	public ArrayList<Photo> returnPhotosWithPersonTag(String tagValue) {
+		return albums.stream()
+				.flatMap(a -> a.getPhotos().stream())
+				.filter(p -> p.getPersonTag().startsWithTagValue(tagValue))
+				.distinct()
+				.collect(Collectors.toCollection(ArrayList::new));
+	}
+	public ArrayList<Photo> returnPhotosWithLocationTag(String tagValue) {
+		return albums.stream()
+				.flatMap(a -> a.getPhotos().stream())
+				.filter(p -> p.getLocationTag().startsWithTagValue(tagValue))
 				.distinct()
 				.collect(Collectors.toCollection(ArrayList::new));
 	}

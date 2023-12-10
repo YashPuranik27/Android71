@@ -11,7 +11,7 @@
 	android:paddingBottom="24dp">
 
 	<TextView
-		android:id="@+id/tags_text_title"
+		android:id="@+id/tags_text_tags"
 		android:layout_width="290dp"
 		android:layout_height="46dp"
 		android:text="@string/title_tags"
@@ -49,7 +49,7 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintRight_toLeftOf="@+id/tags_button_edit_person"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/tags_text_title"
+		app:layout_constraintTop_toBottomOf="@+id/tags_text_tags"
 		app:layout_constraintVertical_bias="0.0" />
 
 	<ImageButton

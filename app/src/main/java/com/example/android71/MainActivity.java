@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -88,8 +89,14 @@ public class MainActivity extends AppCompatActivity implements AlbumController.I
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_main, menu);
-
 		MenuItem searchItem = menu.findItem(R.id.main_menu_item_search);
+
+		searchItem.setOnMenuItemClickListener(v -> {
+			FilterActivity filterActivity = new FilterActivity();
+			filterActivity.show(getSupportFragmentManager(), "FilterFragment");
+			return true;
+		});
+		/*
 		SearchView searchView = (SearchView) searchItem.getActionView();
 		searchView.setSuggestionsAdapter(new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, null, new String[] {"text"}, new int[] {android.R.id.text1}));
 		searchView.setQueryHint("Search");
@@ -120,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements AlbumController.I
 			}
 		});
 
+		*/
 		return super.onCreateOptionsMenu(menu);
 	}
 

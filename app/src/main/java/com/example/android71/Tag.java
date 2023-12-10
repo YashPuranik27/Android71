@@ -18,7 +18,9 @@ public class Tag implements Serializable {
 		return values.stream().anyMatch(s -> s.toLowerCase().startsWith(query));
 	}
 
-
+	public boolean hasValue(String val){
+		return values.contains(val);
+	}
 	/**
 	 * @return whether or not the given value was added successfully
 	 */

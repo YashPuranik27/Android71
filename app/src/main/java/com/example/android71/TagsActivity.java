@@ -1,6 +1,5 @@
 package com.example.android71;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -64,10 +63,20 @@ public class TagsActivity extends BottomSheetDialogFragment {
 		builder.setView(inputVal);
 
 		builder.setPositiveButton("Add", (dialog, which) -> {
-			boolean changed = tag.addValue(inputVal.getText().toString().trim());
+			String valIn = inputVal.getText().toString().trim();
+			if(valIn.equals("") || tag.hasValue(valIn)){
+				return;
+			}
+
+			boolean changed = tag.addValue(valIn);
 			tagTextView.setText(title.split(" ")[1] + ": " + tag.printTagValues());
 			if (changed)
 				ac.saveAlbums(getContext());
+			if(tag.getName().equalsIgnoreCase("location")){
+				ac.addLocationName(valIn);
+			}else if(tag.getName().equals("person")){
+				ac.addPersonName(valIn);
+			}
 		});
 
 		builder.setNegativeButton("Remove", (dialog, which) -> {
